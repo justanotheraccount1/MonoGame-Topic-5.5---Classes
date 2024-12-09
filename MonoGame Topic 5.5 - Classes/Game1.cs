@@ -14,18 +14,18 @@ namespace MonoGame_Topic_5._5___Classes
 
         Rectangle window;
 
-        Tribble tribble1, tribble2, tribble3, tribble4;
+
 
         Texture2D tribbleBrownTexture;
 
         Texture2D tribbleCreamTexture;
 
         Texture2D tribbleGreyTexture;
-        Rectangle tribbleGreyRect;
-        Vector2 tribbleGreySpeed;
 
+        Random generator;
         Texture2D tribbleOrangeTexture;
-
+        List<Tribble> tribbles;
+        List<Texture2D> texture;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -41,14 +41,20 @@ namespace MonoGame_Topic_5._5___Classes
             _graphics.PreferredBackBufferWidth = window.Width;  // set this value to the desired width of your window
             _graphics.PreferredBackBufferHeight = window.Height;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
-
-
+            tribbles = new List<Tribble>();
+            texture = new List<Texture2D>();
+            generator = new Random();
             base.Initialize();
+            texture.Add(tribbleGreyTexture);
+            texture.Add(tribbleOrangeTexture);
+            texture.Add(tribbleBrownTexture);
+            texture.Add(tribbleCreamTexture);
+            tribbles.Add(new Tribble(tribbleGreyTexture, new Rectangle(300, 0, 100, 100), new Vector2(10, 0)));
+            tribbles.Add(new Tribble(tribbleCreamTexture, new Rectangle(0, 300, 100, 100), new Vector2(10, 10)));
+            tribbles.Add(new Tribble(tribbleBrownTexture, new Rectangle(600, 200, 100, 100), new Vector2(0, 10)));
 
-            tribble1 = new Tribble(tribbleGreyTexture, new Rectangle(300, 0, 100, 100), new Vector2(10, 0));
-            tribble2 = new Tribble(tribbleCreamTexture, new Rectangle(0, 300, 100, 100), new Vector2(10, 10));
-            tribble3 = new Tribble(tribbleBrownTexture, new Rectangle(600, 200, 100, 100), new Vector2(0, 10));
-            tribble4 = new Tribble(tribbleOrangeTexture, new Rectangle(400, 100, 100, 100), new Vector2(20, 20));
+            for (int i = 0; i < 1000; i++)
+                tribbles.Add(new Tribble(tribbleOrangeTexture, new Rectangle(generator.Next(700), generator.Next(400), generator.Next(10, 100), generator.Next(10, 100)), new Vector2(generator.Next(-20, 20), generator.Next(-20, 20))));
         }
 
         protected override void LoadContent()
@@ -70,10 +76,10 @@ namespace MonoGame_Topic_5._5___Classes
                 Exit();
 
             // TODO: Add your update logic here
-            tribble1.Move(window);
-            tribble2.Move(window);
-            tribble3.Move(window);
-            tribble4.Move(window);
+            for (int i = 0 ; i < tribbles.Count; i++)
+            {
+                tribbles[i].Move(window);
+            }
 
 
 
@@ -87,10 +93,9 @@ namespace MonoGame_Topic_5._5___Classes
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            _spriteBatch.Draw(tribble1.Texture, tribble1.Rectangle, Color.White);
-            _spriteBatch.Draw(tribble2.Texture, tribble2.Rectangle, Color.White);
-            _spriteBatch.Draw(tribble3.Texture, tribble3.Rectangle, Color.White);
-            _spriteBatch.Draw(tribble4.Texture, tribble4.Rectangle, Color.White);
+            for (int i = 0;  i < tribbles.Count; i++)
+                tribbles[i].Draw(_spriteBatch);
+
             _spriteBatch.End();
             base.Draw(gameTime);
         }

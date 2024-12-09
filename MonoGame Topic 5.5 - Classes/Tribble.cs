@@ -46,5 +46,9 @@ namespace MonoGame_Topic_5._5___Classes
             if (_rectangle.Top <= 0 || _rectangle.Bottom >= window.Bottom)
                 _speed.Y *= -1;
         }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(_texture, _rectangle, Color.White);
+        }
     }
 }
