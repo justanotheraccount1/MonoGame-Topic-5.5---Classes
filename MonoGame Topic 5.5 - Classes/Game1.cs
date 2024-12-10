@@ -16,14 +16,7 @@ namespace MonoGame_Topic_5._5___Classes
 
 
 
-        Texture2D tribbleBrownTexture;
-
-        Texture2D tribbleCreamTexture;
-
-        Texture2D tribbleGreyTexture;
-
         Random generator;
-        Texture2D tribbleOrangeTexture;
         List<Tribble> tribbles;
         List<Texture2D> texture;
         public Game1()
@@ -44,17 +37,13 @@ namespace MonoGame_Topic_5._5___Classes
             tribbles = new List<Tribble>();
             texture = new List<Texture2D>();
             generator = new Random();
-            base.Initialize();
-            texture.Add(tribbleGreyTexture);
-            texture.Add(tribbleOrangeTexture);
-            texture.Add(tribbleBrownTexture);
-            texture.Add(tribbleCreamTexture);
-            tribbles.Add(new Tribble(tribbleGreyTexture, new Rectangle(300, 0, 100, 100), new Vector2(10, 0)));
-            tribbles.Add(new Tribble(tribbleCreamTexture, new Rectangle(0, 300, 100, 100), new Vector2(10, 10)));
-            tribbles.Add(new Tribble(tribbleBrownTexture, new Rectangle(600, 200, 100, 100), new Vector2(0, 10)));
 
-            for (int i = 0; i < 1000; i++)
-                tribbles.Add(new Tribble(tribbleOrangeTexture, new Rectangle(generator.Next(700), generator.Next(400), generator.Next(10, 100), generator.Next(10, 100)), new Vector2(generator.Next(-20, 20), generator.Next(-20, 20))));
+
+            base.Initialize();;
+
+
+            for (int i = 0; i < 2000; i++)
+                tribbles.Add(new Tribble(texture[generator.Next(texture.Count)], new Rectangle(generator.Next(700), generator.Next(400), generator.Next(10, 100), generator.Next(10, 100)), new Vector2(generator.Next(-20, 20), generator.Next(-20, 20))));
         }
 
         protected override void LoadContent()
@@ -62,10 +51,10 @@ namespace MonoGame_Topic_5._5___Classes
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            tribbleGreyTexture = Content.Load<Texture2D>("tribbleGrey");
-            tribbleBrownTexture = Content.Load<Texture2D>("tribbleBrown");
-            tribbleCreamTexture = Content.Load<Texture2D>("tribbleCream");
-            tribbleOrangeTexture = Content.Load<Texture2D>("tribbleOrange");
+            texture.Add(Content.Load<Texture2D>("tribbleGrey"));
+            texture.Add(Content.Load<Texture2D>("tribbleBrown"));
+            texture.Add(Content.Load<Texture2D>("tribbleCream"));
+            texture.Add(Content.Load<Texture2D>("tribbleOrange"));
 
 
         }

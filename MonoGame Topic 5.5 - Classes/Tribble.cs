@@ -39,12 +39,27 @@ namespace MonoGame_Topic_5._5___Classes
         public void Move(Rectangle window)
         {
             _rectangle.Offset(_speed);
-            if (_rectangle.Right >= window.Right || _rectangle.Left <= 0)
+            if (_rectangle.Right >= window.Right)
             {
+                _rectangle.X = (window.Right - _rectangle.Width - 1);
                 _speed.X *= -1;
             }
-            if (_rectangle.Top <= 0 || _rectangle.Bottom >= window.Bottom)
+            if (_rectangle.Left <= 0)
+            {
+                _rectangle.X = 1;
+                _speed.X *= -1;
+            }
+            if (_rectangle.Top <= 0)
+            {
+                _rectangle.Y = 1;
                 _speed.Y *= -1;
+            }
+            
+            if (_rectangle.Bottom >= window.Bottom)
+            {
+                _rectangle.Y = (window.Bottom - _rectangle.Height - 1);
+                _speed.Y *= -1;
+            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
